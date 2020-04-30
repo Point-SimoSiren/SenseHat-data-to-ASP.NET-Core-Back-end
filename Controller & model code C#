@@ -1,1 +1,62 @@
+CONTROLLER CODE: (Model down below)
 
+// I only send temperature from pi. Time is created on back-end. Others on model I have left null.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using temperatureCore.Models;
+
+namespace temperatureCore.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MeasurementsController : ControllerBase
+    {
+
+        [HttpPost]
+        [Route("")]
+        public ActionResult CreateMeasurement([FromBody] Measurements mittaus)
+        {
+            hoivadbContext db = new hoivadbContext();
+            try
+            {
+                mittaus.Time = DateTime.Now;
+
+                db.Measurements.Add(mittaus);
+                db.SaveChanges();
+                return Ok(mittaus.MeasurementId);
+            }
+            catch (Exception e)
+            {
+                return Ok(e);
+            }
+            finally
+            {
+                db.Dispose();
+            }
+
+        }
+
+    }
+}
+MODEL CODE:
+
+using System;
+using System.Collections.Generic;
+
+namespace temperatureCore.Models
+{
+    public partial class Measurements
+    {
+        public int MeasurementId { get; set; }
+        public int? Sender { get; set; }
+        public DateTime? Time { get; set; }
+        public int? Type { get; set; }
+        public double? Value { get; set; }
+    }
+}
