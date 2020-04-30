@@ -33,7 +33,7 @@ namespace temperatureCore.Controllers
             }
             catch (Exception e)
             {
-                return Ok(e);
+                return BadRequest(e);
             }
             finally
             {
