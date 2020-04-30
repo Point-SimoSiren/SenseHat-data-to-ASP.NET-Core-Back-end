@@ -1,1 +1,18 @@
+from sense_hat import SenseHat
+import time
+import requests
 
+hat = SenseHat()
+
+while True:
+   
+    temp = hat.get_temperature()-12
+    print("Temp: %s C" % temp)
+    url = 'https://tempercore.azurewebsites.net/api/measurements'
+    mittaus = {'Value': temp}
+   
+    x = requests.post(url, json = mittaus)
+
+    print(x)
+
+    time.sleep(10)
