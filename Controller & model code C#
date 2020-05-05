@@ -1,6 +1,5 @@
-CONTROLLER CODE: (Model down below)
-
-// I only send temperature from pi. Time is created on back-end. Others on model I have left null.
+//CONTROLLER CODE: (Model is down below)
+// I send value, sender, and type from pi. Time is created on back-end.
 
 using System;
 using System.Collections.Generic;
@@ -54,9 +53,9 @@ namespace temperatureCore.Models
     public partial class Measurements
     {
         public int MeasurementId { get; set; }
-        public int? Sender { get; set; }
+        public int? Sender { get; set; } // Laitekoodi esim 1
         public DateTime? Time { get; set; }
-        public string? Type { get; set; }
-        public double? Value { get; set; }
+        public string? Type { get; set; } // esim: "Lämpö"
+        public double? Value { get; set; } 
     }
 }
