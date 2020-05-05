@@ -26,6 +26,7 @@ namespace temperatureCore.Controllers
             try
             {
                 mittaus.Time = DateTime.Now;
+                mittaus.Sender = 1;
 
                 db.Measurements.Add(mittaus);
                 db.SaveChanges();
