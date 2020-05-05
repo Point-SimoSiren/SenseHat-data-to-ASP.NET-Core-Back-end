@@ -9,7 +9,7 @@ while True:
     temp = hat.get_temperature()-12
     print("Temp: %s C" % temp)
     url = 'https://tempercore.azurewebsites.net/api/measurements'
-    mittaus = {'Value': temp}
+    mittaus = {'Value': temp; 'Sender': 1; 'Type':'Temperature'}
    
     x = requests.post(url, json = mittaus)
 
