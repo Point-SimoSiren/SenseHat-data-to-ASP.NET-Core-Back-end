@@ -26,7 +26,6 @@ namespace temperatureCore.Controllers
             try
             {
                 mittaus.Time = DateTime.Now;
-                mittaus.Sender = 1;
 
                 db.Measurements.Add(mittaus);
                 db.SaveChanges();
@@ -57,7 +56,7 @@ namespace temperatureCore.Models
         public int MeasurementId { get; set; }
         public int? Sender { get; set; }
         public DateTime? Time { get; set; }
-        public int? Type { get; set; }
+        public string? Type { get; set; }
         public double? Value { get; set; }
     }
 }
