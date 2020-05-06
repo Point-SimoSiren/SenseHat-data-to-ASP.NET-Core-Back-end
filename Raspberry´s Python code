@@ -1,18 +1,32 @@
 from sense_hat import SenseHat
 import time
 import requests
+import math
 
 hat = SenseHat()
 
+# funktio pyöristämistä varten
+def truncate(number, digits) -> float:
+    stepper = 10.0 ** digits
+    return math.trunc(stepper * number) / stepper
+
 while True:
    
-    temp = hat.get_temperature()-12
-    print("Temp: %s C" % temp)
-    url = 'https://tempercore.azurewebsites.net/api/measurements'
-    mittaus = {'Value': temp, 'Sender': 1, 'Type':'Temperature'}
+    temp = truncate(hat.get_temperature()-12, 2)
+    hum = truncate(hat.get_humidity(), 2)
+    press = truncate(hat.get_pressure(), 2)
    
+    print('--------------------------------')    
+    print('Lämpö: ', temp, 'C')
+    print('Kosteus: ', hum, '%')
+    print('Ilmanpaine: ', press, 'mbar')
+   
+    url = 'https://{mySecret}.azurewebsites.net/api/measurements'
+    #Muodostetaan käsin pätkä jsonia johon mitatut arvot sijoitetaan
+    mittaus = {'Sender': 'rpi3-koti', 'Temperature': temp, 'Humidity': hum, 'Pressure': press }
+    #ao. json on request kirjaston termi joka kertoo että kyse on jsonista
     x = requests.post(url, json = mittaus)
 
-    print(x)
+    print(x.text)
 
     time.sleep(10)
