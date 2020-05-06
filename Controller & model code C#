@@ -1,13 +1,9 @@
-//CONTROLLER CODE: (Model is down below)
-// I send value, sender, and type from pi. Time is created on back-end.
+-------------------------------------------------
+CONTROLLER CODE: (Model is down below)
+-------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using temperatureCore.Models;
 
 namespace temperatureCore.Controllers
@@ -24,15 +20,15 @@ namespace temperatureCore.Controllers
             hoivadbContext db = new hoivadbContext();
             try
             {
-                mittaus.Time = DateTime.Now;
+                mittaus.Time = DateTime.Now; // Aikaleima laitetaan back-endissä, muut tulee IoT laitteesta
 
                 db.Measurements.Add(mittaus);
                 db.SaveChanges();
-                return Ok(mittaus.MeasurementId);
+                return Ok("Kiitos! Tallennettu id:llä " + mittaus.MeasurementId);
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest("Jotain meni pieleen, mutta pyyntö tuli perille. Kts: " + e.GetType().Name + " : " + e.Message);
             }
             finally
             {
@@ -40,22 +36,22 @@ namespace temperatureCore.Controllers
             }
 
         }
-
     }
 }
+--------------------------------------------------------------------------
 MODEL CODE:
-
+-----------------------------------------------------------------------
 using System;
-using System.Collections.Generic;
 
 namespace temperatureCore.Models
 {
     public partial class Measurements
     {
         public int MeasurementId { get; set; }
-        public int? Sender { get; set; } // Laitekoodi esim 1
+        public string Sender { get; set; }
         public DateTime? Time { get; set; }
-        public string? Type { get; set; } // esim: "Lämpö"
-        public double? Value { get; set; } 
+        public double? Temperature { get; set; }
+        public double? Humidity { get; set; }
+        public double? Pressure { get; set; }
     }
 }
