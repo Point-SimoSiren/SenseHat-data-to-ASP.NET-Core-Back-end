@@ -22,8 +22,10 @@ while True:
     print('Ilmanpaine: ', press, 'mbar')
    
     url = 'https://{mySecret}.azurewebsites.net/api/measurements'
+    
     #Muodostetaan käsin pätkä jsonia johon mitatut arvot sijoitetaan
     mittaus = {'Sender': 'rpi3-koti', 'Temperature': temp, 'Humidity': hum, 'Pressure': press }
+    
     #ao. json on request kirjaston termi joka kertoo että kyse on jsonista
     x = requests.post(url, json = mittaus)
 
