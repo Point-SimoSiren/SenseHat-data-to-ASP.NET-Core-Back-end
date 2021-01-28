@@ -17,7 +17,7 @@ namespace temperatureCore.Controllers
         [Route("")]
         public ActionResult CreateMeasurement([FromBody] Measurements mittaus)
         {
-            hoivadbContext db = new hoivadbContext();
+            temperaturedbContext db = new temperaturedbContext();
             try
             {
                 mittaus.Time = DateTime.Now; // Aikaleima laitetaan back-endissä, muut tulee IoT laitteesta
@@ -39,7 +39,7 @@ namespace temperatureCore.Controllers
     }
 }
 --------------------------------------------------------------------------
-MODEL CODE:
+MODEL CODE: (Tämä vastaa tietokannan kenttiä)
 -----------------------------------------------------------------------
 using System;
 
