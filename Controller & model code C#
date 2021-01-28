@@ -13,6 +13,9 @@ namespace temperatureCore.Controllers
     public class MeasurementsController : ControllerBase
     {
     
+   private temperaturedbContext db = new temperaturedbContext();
+            
+    
       // Hae kaikki mittaukset
         [HttpGet]
         [Route("")]
@@ -27,8 +30,7 @@ namespace temperatureCore.Controllers
         [Route("")]
         public ActionResult CreateMeasurement([FromBody] Measurements mittaus)
         {
-            temperaturedbContext db = new temperaturedbContext();
-            try
+           try
             {
                 mittaus.Time = DateTime.Now; // Aikaleima laitetaan back-endissä, muut tulee IoT laitteesta
 
