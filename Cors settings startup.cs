@@ -13,3 +13,9 @@
                 .AllowAnyHeader());
             });
         }
+.....
+......
+  //Alempana otetaan Cors policy vielä käyttöön
+  // Cors sallii muista palvelimista tulevat pyynnöt
+  
+App.UseCors("MyCorsPolicy");
