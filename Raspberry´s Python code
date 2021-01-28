@@ -1,7 +1,11 @@
 from sense_hat import SenseHat
+
 import time
+#time tarvitaan sleepin määrittelyyn lopussa
+
 import requests
 import math
+# math on pyöristysfunktiossa käytössä
 
 hat = SenseHat()
 
@@ -21,14 +25,16 @@ while True:
     print('Kosteus: ', hum, '%')
     print('Ilmanpaine: ', press, 'mbar')
    
-    url = 'https://{mySecret}.azurewebsites.net/api/measurements'
+    url = 'https://timesheetrest.azurewebsites.net/api/measurements'
     
     #Muodostetaan käsin pätkä jsonia johon mitatut arvot sijoitetaan
     mittaus = {'Sender': 'rpi3-koti', 'Temperature': temp, 'Humidity': hum, 'Pressure': press }
     
     #ao. json on request kirjaston termi joka kertoo että kyse on jsonista
+    # http post pyyntö lähetetään urliin ja pyynnön body osassa menee json data mukana
+    
     x = requests.post(url, json = mittaus)
 
-    print(x.text)
+    print(x.url, "vastasi: ", x.text)
 
     time.sleep(10)
