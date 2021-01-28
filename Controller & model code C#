@@ -12,6 +12,16 @@ namespace temperatureCore.Controllers
     [ApiController]
     public class MeasurementsController : ControllerBase
     {
+    
+      // Hae kaikki mittaukset
+        [HttpGet]
+        [Route("")]
+        public List<Measurements> GetAll()
+        {
+            List<Measurements> measurements = context.Measurements.ToList();
+            return measurements;
+        }
+        
 
         [HttpPost]
         [Route("")]
