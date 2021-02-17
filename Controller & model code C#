@@ -32,7 +32,8 @@ namespace temperatureCore.Controllers
         {
            try
             {
-                mittaus.Time = DateTime.Now; // Aikaleima laitetaan back-endissä, muut tulee IoT laitteesta
+                mittaus.Time = DateTime.Now.AddHours(2); // Aikaleima laitetaan back-endissä, muut tulee IoT laitteesta
+                //Päivitys: Lisätty 2h koska palvelinkone on Irlannissa.
 
                 db.Measurements.Add(mittaus);
                 db.SaveChanges();
